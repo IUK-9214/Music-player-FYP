@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { Logo } from "../assets/img";
 import { NavLink, useNavigate } from "react-router-dom";
-
-import { isActiveStyles } from "../utils/styles";
-import { isNotActiveStyles } from "../utils/styles";
+import { isActiveStyles, isNotActiveStyles } from "../utils/styles";
 import { FaCrown } from "react-icons/fa";
 import { useStateValue } from "../context/StateProvider";
-
 import { app } from "../config/firebase.config";
 import { getAuth } from "firebase/auth";
 import { motion } from "framer-motion";
+
 const Header = () => {
   const [{ user }, dispatch] = useStateValue();
   const [isMenu, setIsMenu] = useState(false);
-
   const navigate = useNavigate();
-  //logout funtion is here
+
   const logOut = () => {
     const firebaseAuth = getAuth(app);
     firebaseAuth
@@ -24,15 +21,18 @@ const Header = () => {
         window.localStorage.setItem("auth", "false");
       })
       .catch((e) => console.log(e));
+
     navigate("/login", { replace: true });
   };
+
   return (
-    // here we can create the header and make the header the nav bar
-    //inside the navlink i use thev active an in active functionality
-    <header className="flex items-center w-full p-4 md:py-2 md:px-6 ">
+    <header className="flex items-center w-full p-4 md:py-2 md:px-6">
+      {/* Static Logo */}
       <NavLink to={"/"}>
         <img src={Logo} alt="logo" className="w-16" />
       </NavLink>
+
+      {/* Static Navigation Links */}
       <ul className="flex items-center justify-center ml-7">
         <li className="mx-5 text-lg">
           <NavLink
@@ -46,7 +46,7 @@ const Header = () => {
         </li>
         <li className="mx-5 text-lg">
           <NavLink
-            to={"/musics"}
+            to={"/Music"}
             className={({ isActive }) =>
               isActive ? isActiveStyles : isNotActiveStyles
             }
@@ -56,7 +56,7 @@ const Header = () => {
         </li>
         <li className="mx-5 text-lg">
           <NavLink
-            to={"/premium"}
+            to={"/Premium"}
             className={({ isActive }) =>
               isActive ? isActiveStyles : isNotActiveStyles
             }
@@ -66,7 +66,7 @@ const Header = () => {
         </li>
         <li className="mx-5 text-lg">
           <NavLink
-            to={"/contact"}
+            to={"/ContactUs"}
             className={({ isActive }) =>
               isActive ? isActiveStyles : isNotActiveStyles
             }
@@ -76,15 +76,16 @@ const Header = () => {
         </li>
       </ul>
 
+      {/* User Profile Section (with dropdown animation) */}
       <div
         onMouseEnter={() => setIsMenu(true)}
         onMouseLeave={() => setIsMenu(false)}
-        className="flex items-center ml-auto cursor-pointer gap-2 realtive "
+        className="flex items-center ml-auto cursor-pointer gap-2 relative"
       >
         <img
-          src={user?.user.imageUrl}
+          src={user?.user?.imageUrl}
           className="w-12 h-12 min-w-[44px] object-cover rounded-full shadow-lg"
-          alt=""
+          alt="user avatar"
           referrerPolicy="no-referrer"
         />
         <div className="flex flex-col">
@@ -92,42 +93,40 @@ const Header = () => {
             {user?.user?.name}
           </p>
           <p className="flex items-center gap-2 text-xs text-gray-500 font-normal">
-            Premium Member .<FaCrown className="text-sm-ml-1 text-yellow-500" />
+            Premium Member <FaCrown className="text-yellow-500 text-sm" />
           </p>
         </div>
+
+        {/* Animated Dropdown Menu */}
         {isMenu && (
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="absolute z-10 p-3 top-12 right-0 w-275 flex flex-col gap-2 bg-card shadow-lg rounded-lg backdrop-blur-sm "
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+            className="absolute z-10 p-3 top-14 right-0 w-60 flex flex-col gap-2 bg-card shadow-lg rounded-lg backdrop-blur-sm"
           >
             <NavLink to={"/userProfile"}>
-              <p className="text-base  text-textColor hover:font-semibold duration-150 transition-all ease-in-out">
+              <p className="text-base text-textColor hover:font-semibold transition-all">
                 Profile
               </p>
             </NavLink>
-
-            <p className="text-base  text-textColor hover:font-semibold duration-150 transition-all ease-in-out">
-              My favourites
+            <p className="text-base text-textColor hover:font-semibold transition-all">
+              My Favourites
             </p>
-
             <hr />
-
             {user?.user?.role === "admin" && (
               <>
                 <NavLink to={"/dashboard/home"}>
-                  <p className="text-base  text-textColor hover:font-semibold duration-150 transition-all ease-in-out">
+                  <p className="text-base text-textColor hover:font-semibold transition-all">
                     Dashboard
                   </p>
                 </NavLink>
-
                 <hr />
               </>
             )}
-
             <p
-              className="text-base  text-textColor hover:font-semibold duration-150 transition-all ease-in-out"
+              className="text-base text-textColor hover:font-semibold transition-all cursor-pointer"
               onClick={logOut}
             >
               Sign Out

@@ -13,3 +13,9 @@ export {default as DashboardNewSong} from "./DashboardNewSong"
 export{default as SongCard} from "./SongCard"
 
 export {default as FilterButtons} from "./FilterButtons"
+export {default as Alert} from "./Alert"
+export {default as MusicPlayer} from "./MusicPlayer"
+export {default as Music} from "./Music"
+export{ default as ContactUs} from "./ContactUs"
+export{ default as Premium} from "./Premium"
+ 

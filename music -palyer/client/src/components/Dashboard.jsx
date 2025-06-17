@@ -10,8 +10,12 @@ import DashboardSongs from "./DashboardSongs";
 import DashboardArtist from "./DashboardArtist";
 import DashboardAlbum from "./DashboardAlbum";
 import DashboardNewSong from "./DashboardNewSong";
+import Alert from "./Alert";
+import { useStateValue } from "../context/StateProvider";
 
 const Dashboard = () => {
+  const [{ alertType }, dispatch] = useStateValue();
+
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center bg-primary">
       <Header />
@@ -61,16 +65,16 @@ const Dashboard = () => {
       <div className=" my-4 w-full p-4 ">
         <Routes>
           <Route path="/home" element={<DashboardHome />} />
-<Route path="/user" element={<DashboardUsers />} />
-<Route path="/songs" element={<DashboardSongs />} />
-<Route path="/artist" element={<DashboardArtist/>} />
-<Route path="/album" element={<DashboardAlbum/>} />
-<Route path="/newSong" element={<DashboardNewSong/>} />
-
-
+          <Route path="/user" element={<DashboardUsers />} />
+          <Route path="/songs" element={<DashboardSongs />} />
+          <Route path="/artist" element={<DashboardArtist />} />
+          <Route path="/album" element={<DashboardAlbum />} />
+          <Route path="/newSong" element={<DashboardNewSong />} />
         </Routes>
       </div>
-
+      {alertType && (
+        <Alert type={alertType} />
+      )}
     </div>
   );
 };

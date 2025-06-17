@@ -8,4 +8,7 @@ filterTerm:"all",
 artistFilter:null,
 languageFilter:null,
 albumFilter:null,
+alertType:null,
+isSongPlaying: false,
+songIndex:0,
 };

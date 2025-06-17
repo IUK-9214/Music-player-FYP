@@ -24,7 +24,7 @@ if (!allsongs){
 },[])
 
   return (
-    <div className="w-full p-4 flex items-center flex-col ">
+    <div className="w-full p-4 flex items-center justify-center flex-col ">
       <div
         className={`w-full flex items-center justify-center gap-20 `}
       >
@@ -49,7 +49,7 @@ if (!allsongs){
 
       </div>
       {/* this is the main container */}
-      <div className="realtive w-full my-4 p-4 border border-gray-300 rounded-md ">
+      <div className="realtive w-full my-4 p-4 py-16 border border-gray-300 rounded-md ">
         {/*the count */}
         <div className=" top-4 left-4">
           <p className="text-xl font-bold">
@@ -66,7 +66,7 @@ export const SongContainer=({data})=>{
   return(
     <div className="w-full flex flex-wrap gap-3 items-center justify-evenly">
       {data && data.map((song,i)=>(
-        <SongCard key={song._id}  data={song} index={i}/>
+        <SongCard key={song._id}  data={song} index={i} type="song"/>
       ))}
     </div>
   )

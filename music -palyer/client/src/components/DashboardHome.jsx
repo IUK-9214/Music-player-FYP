@@ -33,9 +33,7 @@ const DashBoardHome = () => {
           allUsers: data.data,
         });
       });
-    } else {
-      console.error("Failed to fetch users.");
-    }
+    } 
 
     if (!allsongs) {  
       getAllSongs().then((data) => {
@@ -44,27 +42,20 @@ const DashBoardHome = () => {
           allsongs: data.song,
         });
       });
-    } else {
-      console.error("Failed to fetch songs.");
-    }
+    } 
 
     if (!artists) {
       getAllArtist().then((data) => {
-
         dispatch({ type: actionType.SET_ALL_ARTIST, artists: data.artist });
       });
-    } else {
-      console.error("Failed to fetch artist.");
-    }
+    } 
 
     if (!allAlbums) {
       getAllAlbums().then((data) => {
 
         dispatch({ type: actionType.SET_ALL_ALBUMS, allAlbums: data.album });
       });
-    } else {
-      console.error("Failed to fetch albums.");
-    }
+    } 
   }, [allUsers, allsongs, artists, allAlbums, dispatch]);
   return (
     <div className="w-full p-6 flex items-center justify-evenly flex-wrap">

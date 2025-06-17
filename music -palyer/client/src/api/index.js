@@ -72,3 +72,55 @@ try {
     return null
   }
  }
+
+export const saveNewSong = async (data)=>{
+
+  try {
+    const res=axios.post(`${baseURL}api/songs/save`,{...data});
+    return (await res).data.savedSong;
+  } catch (error) {
+    return null;
+  }
+}
+
+export const  saveNewArtist = async(data)=>{
+try {
+    const res=axios.post(`${baseURL}api/artist/save`,{...data});
+    return (await res).data.savedArtist;
+  } catch (error) {
+    return null;
+  }
+}
+
+ export const saveNewAlbum =async(data)=>{
+  try {
+    const res=axios.post(`${baseURL}/api/album/save`,{...data});
+    return (await res).data.savedAlbum;
+  } catch (error) {
+    return null;
+  }
+ }
+ export const deleteSongById =async(id)=>{
+ try {
+    const res=axios.delete(`${baseURL}/api/songs/delete/${id}`);
+    return (await res).data.savedAlbum;
+  } catch (error) {
+    return null;
+  }
+ }
+  export const deleteAlbumById =async(id)=>{
+ try {
+    const res=axios.delete(`${baseURL}/api/album/delete/${id}`);
+    return (await res).data.savedAlbum;
+  } catch (error) {
+    return null;
+  }
+ }
+  export const deleteArtistById =async(id)=>{
+ try {
+    const res=axios.delete(`${baseURL}/api/artist/delete/${id}`);
+    return (await res).data.savedAlbum;
+  } catch (error) {
+    return null;
+  }
+ }
